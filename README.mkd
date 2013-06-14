@@ -1,0 +1,50 @@
+A jQuery demo demonstrating adding/deleting html, changing text, and event handling. 
+
+_Notes taken from http://www.codeschool.com/courses/try-jquery_
+
+## Editing Attributes
+
+| Function | No Params | With Params |
+|----------|-----------|-------------|
+|.text		 | query the stripped text | set the escaped text |
+|.html		 | query the html & text   | build the html & text |
+
+## Moving Strategy
+
+	var to_move = $('p').remove();
+	$('p#destination').before(to_move);
+	
+## Commonly Used Events
+
+	$(element).event(function() {} );
+	
+<dl>
+	<dt>.ready</dt><dd>Fires when object is completely loaded</dd>
+	<dt>.click</dt><dd>Left mouse button is clicked and released</dd>
+	<dt>.hover</dt><dd>once when the mouse moves on to an element and moves out</dd>
+	<dt>keypress</dt><dd>keyboard key is pressed and released.</dd>
+</dl>
+			
+## Event Object
+
+<dl>
+	<dt>.which</dt><dd>code for which key was pressed</dd>
+	<dt>.pageX/Y</dt><dd>coordinatees of the mouse pointer</dd>
+	<dt>.preventDefault()</td><dd>stop the broswer from it's default action</dd>
+	<dt>.stopPropogation()</dt><dd>stop the event from triggering other handlers</dd>
+</dl>
+
+## jQuery Notes
+
+Associate to all currently existing objects only. Replace `.bind` (and `.click`?) with: 
+
+	$(selector).click(function()) {} // Sorthand for .on(), but can only handle click event, not multiple events
+	$(selector).on('click focus', function () { // Binding to multiple events
+  	...
+	});
+
+Associate with all matching objects dynamically. Replace `.live` with:
+
+	$(document).on('click', selector, function () {
+  	...
+	});

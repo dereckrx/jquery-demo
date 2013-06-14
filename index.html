@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script> 
+	<link rel="stylesheet" type="text/css" href="index.css" />
+</head>
+<body>
+	<header class="main">
+	</header>
+	<div class="content">
+		<section>
+			<button id="html">.html()</button>
+			<button id="text">.text()</button>
+			<button id="shift_node">Shift</button>
+			Press the 'f' key for more info.
+			<ul>
+				<li>
+					<span><button id="prepend">+</button>Node1<button id="append">+</button></span>
+				</li>
+				<li>Node2</li>
+				<li>Node3</li>
+			</ul>
+			<button id="push_node" type="button">Push</button>
+			<button id="pop_node" type="button">Pop</button>
+			<input id="user_input" type="text"></input>
+			<button id="append_node" type="button">Append to list</button>
+		</section>
+		<section>
+			<table>
+				<th>Function</th>
+				<th>no params</th>
+				<th>with params</th>
+				<tr>
+					<td>.text</td>
+					<td>query the stripped text</td>
+					<td>set the escaped text</td>
+				</tr>
+				<tr>
+					<td>.html</td>
+					<td>query the html & text</td>
+					<td>build the html & text</td>
+				</tr>
+			</table>
+			<p>
+				Moving Strategy:<br /> 
+				<em>
+					var to_move = $('p').remove();<br/>
+					$('p#destination').before(to_move);
+				</em>
+			</p>
+		</section>
+		<section>
+			<h3>Commonly used events: $(element).event(function() {} );</h3>
+			<dl>
+				<dt>.ready</dt><dd>Fires when object is completely loaded</dd>
+				<dt>.click</dt><dd>Left mouse button is clicked and released</dd>
+				<dt>.hover</dt><dd>once when the mouse moves on to an element and moves out</dd>
+				<dt>keypress</dt><dd>keyboard key is pressed and released.</dd>
+			</dl>
+			<h3>Event Object</h3>
+			<dl>
+				<dt>.which</dt><dd>code for which key was pressed</dd>
+				<dt>.pageX/Y</dt><dd>coordinatees of the mouse pointer</dd>
+				<dt>.preventDefault()</td><dd>stop the broswer from it's default action</dd>
+				<dt>.stopPropogation()</dt><dd>stop the event from triggering other handlers</dd>
+			</dl>
+		</section>
+		<section>
+			<h2>jQuery Notes:</h2>
+			Associate to all currently existing objects only. Replace .bind (and .click?) with: 
+			<pre><code>
+$(selector).click(function()) {} // Sorthand for .on(), but can only handle click event, not multiple events
+$(selector).on('click focus', function () { // Binding to multiple events
+  ...
+});
+			</code></pre>
+			Associate with all matching objects dynamically. replace .live with:
+			<pre><code>
+$(document).on('click', selector, function () {
+  ...
+});
+			</code></pre>
+			
+		<section id="load_example"></section>
+	</div>
+	<footer class="main">
+		<script type="text/javascript">// All non rendering js should go here at the bottom so it loads last
+			$(document).ready(function() {
+	
+				var previous_node = null; // For moving nodes
+				var node_count = 0;
+				
+				// Messing with text and html
+				$("button#html").live("click", function() {
+					var html = prompt($("li:first").html());
+					$('li:first').html(html);
+				});
+				
+				$("button#text").live("click", function() {
+					var text = prompt($("li:first").text());
+					$("li:first").text(text);
+				});
+				
+				// Inserting inline
+				$("#append").live("click", function() {
+					$("li > span").append("<b>[Appending]<b>");
+				});
+				$("#prepend").live("click", function() {
+					$("ul:first > li:first span").prepend("<b>[prepending]<b>");
+				});
+				
+				// Nodes and Siblings 
+				$("#shift_node").live("click", function() {
+					node_count += 1;
+					$("ul:first > li:first").before("<li class='removable'><a href='#' data-removeable='true'>New Node " +node_count+"</a></li>");
+				});
+				$("#push_node").live("click", function() {
+					var new_node = null;
+					if(previous_node == null) {
+						node_count += 1;
+						new_node = $("<li class='removable'><a href='#' data-removeable='true'>New Node "+node_count+"</a></li>");
+					} else {
+						new_node = previous_node;
+						previous_node = null;
+					}
+					$("ul:first > li:last").after(new_node);
+				});
+				$("#pop_node").live("click", function() {
+					previous_node = $("ul:first > li:last").remove();
+				});
+				// Using append to list, instead of before and after
+				// $("button#append_node").click(function() {
+				// 	$("ul").append($("<li>", {
+				// 		text: $("input#user_input").val()
+				// 	}));
+				// });
+				// Same as above but using optimized .createElement methods
+				$("button#append_node").click(function() {
+					var new_li = $(document.createElement("li"));
+					new_li.text($("input#user_input").val());
+					$("ul").append(new_li);
+				});
+				
+				// ### Handling events
+				$("table").click(function() {
+					$(this).hide("slow");
+					$(this).slideUp("slow");
+					$(this).fadeOut("slow");
+				});
+				
+				// Hover can take one param, or two function params for in and out (addClass/removeClass)
+				$("p").hover(function() { 
+					$(this).toggleClass("highlight");
+				});
+				
+				$("body").keypress(function(event) {
+					if (event.which == 102){alert("fantastic")};
+				});
+				
+				// Loading ajax
+				//$("#load_example").load("http://www.google.com");
+			});
+		</script>
+	</footer>
+</body>
+</html>
