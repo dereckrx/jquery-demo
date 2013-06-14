@@ -25,61 +25,6 @@
 			<input id="user_input" type="text"></input>
 			<button id="append_node" type="button">Append to list</button>
 		</section>
-		<section>
-			<table>
-				<th>Function</th>
-				<th>no params</th>
-				<th>with params</th>
-				<tr>
-					<td>.text</td>
-					<td>query the stripped text</td>
-					<td>set the escaped text</td>
-				</tr>
-				<tr>
-					<td>.html</td>
-					<td>query the html & text</td>
-					<td>build the html & text</td>
-				</tr>
-			</table>
-			<p>
-				Moving Strategy:<br /> 
-				<em>
-					var to_move = $('p').remove();<br/>
-					$('p#destination').before(to_move);
-				</em>
-			</p>
-		</section>
-		<section>
-			<h3>Commonly used events: $(element).event(function() {} );</h3>
-			<dl>
-				<dt>.ready</dt><dd>Fires when object is completely loaded</dd>
-				<dt>.click</dt><dd>Left mouse button is clicked and released</dd>
-				<dt>.hover</dt><dd>once when the mouse moves on to an element and moves out</dd>
-				<dt>keypress</dt><dd>keyboard key is pressed and released.</dd>
-			</dl>
-			<h3>Event Object</h3>
-			<dl>
-				<dt>.which</dt><dd>code for which key was pressed</dd>
-				<dt>.pageX/Y</dt><dd>coordinatees of the mouse pointer</dd>
-				<dt>.preventDefault()</td><dd>stop the broswer from it's default action</dd>
-				<dt>.stopPropogation()</dt><dd>stop the event from triggering other handlers</dd>
-			</dl>
-		</section>
-		<section>
-			<h2>jQuery Notes:</h2>
-			Associate to all currently existing objects only. Replace .bind (and .click?) with: 
-			<pre><code>
-$(selector).click(function()) {} // Sorthand for .on(), but can only handle click event, not multiple events
-$(selector).on('click focus', function () { // Binding to multiple events
-  ...
-});
-			</code></pre>
-			Associate with all matching objects dynamically. replace .live with:
-			<pre><code>
-$(document).on('click', selector, function () {
-  ...
-});
-			</code></pre>
 			
 		<section id="load_example"></section>
 	</div>
@@ -149,7 +94,7 @@ $(document).on('click', selector, function () {
 				});
 				
 				// Hover can take one param, or two function params for in and out (addClass/removeClass)
-				$("p").hover(function() { 
+				$("li").hover(function() { 
 					$(this).toggleClass("highlight");
 				});
 				

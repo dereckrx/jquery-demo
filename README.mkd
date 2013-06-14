@@ -22,7 +22,7 @@ _Notes taken from http://www.codeschool.com/courses/try-jquery_
 	<dt>.ready</dt><dd>Fires when object is completely loaded</dd>
 	<dt>.click</dt><dd>Left mouse button is clicked and released</dd>
 	<dt>.hover</dt><dd>once when the mouse moves on to an element and moves out</dd>
-	<dt>keypress</dt><dd>keyboard key is pressed and released.</dd>
+	<dt>.keypress</dt><dd>keyboard key is pressed and released.</dd>
 </dl>
 			
 ## Event Object
@@ -40,11 +40,11 @@ Associate to all currently existing objects only. Replace `.bind` (and `.click`?
 
 	$(selector).click(function()) {} // Sorthand for .on(), but can only handle click event, not multiple events
 	$(selector).on('click focus', function () { // Binding to multiple events
-  	...
+  		...
 	});
 
 Associate with all matching objects dynamically. Replace `.live` with:
 
 	$(document).on('click', selector, function () {
-  	...
+  		...
 	});
